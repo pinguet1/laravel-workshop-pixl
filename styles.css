@@ -2,7 +2,7 @@
 
 @theme {
     --color-pixl: #eca749;
-    --color-pixl-light: #f8e0c1;
+    --color-pixl-light: #eeeeee;
     --color-pixl-dark: #090909;
 
     --font-pixl: 'Departure Mono', monospace;
@@ -10,6 +10,10 @@
 }
 
 @layer base{
+
+    *:focus-visible{
+        outline: 2px solid var(--color-pixl);
+    }
     @font-face {
         font-family: 'Departure Mono';
         src: url('/public/fonts/DepartureMono-Regular.woff2') format('woff2'),
