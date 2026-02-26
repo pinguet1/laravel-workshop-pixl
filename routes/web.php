@@ -1,12 +1,15 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+
     return view('welcome');
 });
 
 Route::get('/feed', function(){
+
     $feedItems = json_decode(json_encode([
         [
             'postedDateTime'=> '3h',
@@ -51,6 +54,7 @@ Route::get('/feed', function(){
 });
 Route::get('/profile', function(){
 
+
     $feedItems = json_decode(json_encode([
         [
             'postedDateTime'=> '3h',
@@ -92,3 +96,8 @@ Route::get('/profile', function(){
     return view('profile', compact('feedItems'));
 });
 
+Route::get('/{profile:handle}', [ProfileController::class, 'show'])
+    ->name('profile.show');
+
+Route::get('/{profile:handle}/with_replies',[ProfileController::class, 'replies'])
+    ->name('profile.replies');

@@ -27,6 +27,6 @@ class ArtistsToFollow extends Component
             ['img' => 'mr-anderson.png', 'name'=>'Mr. Anderson'],
             ['img' => 'michael.png', 'name'=>'Michael']
         ];
-        return view('components.artists-to-follow', compact('artists'));
+        return view('components.profile.artists-to-follow', compact('artists'));
     }
 }

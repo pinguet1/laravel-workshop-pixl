@@ -43,6 +43,14 @@ class DatabaseSeeder extends Seeder
            }
        }
 
+       foreach($profiles as $profile) {
+           $toRepost = $posts->where('profile_id', '!=', $profile->id)->random(rand(2, 5));
+
+           foreach($toRepost as $post) {
+               Post::repost($profile, $post, rand(0,1) ? null : 'Great Post!');
+           }
+       }
+
        for ($ii = 0; $ii < rand(20, 30); $ii++) {
            $parentPost = $posts->random();
            $replier = $profiles->where('id', '!=', $parentPost->profile_id)->random();
