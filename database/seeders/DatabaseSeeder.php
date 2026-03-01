@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
        $profiles = Profile::factory()->count(20)->create();
 
        foreach ($profiles as $profile) {

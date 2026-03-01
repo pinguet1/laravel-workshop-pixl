@@ -26,7 +26,7 @@ class Profile extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function post(): HasMany
+    public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }

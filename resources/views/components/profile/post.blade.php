@@ -12,7 +12,7 @@
             <div class="flex items-center justify-between gap-4">
                 <div class="flex items-center gap-2.5">
                     <p><a class="hover:underline" href="/{{ $post->profile->handle }}">{{ $post->profile->display_name }}</a></p>
-                    <p class="text-pixl-light/40 text-xs">{{ $post->created_at }}</p>
+                    <p class="text-pixl-light/40 text-xs"><a href="{{ route('posts.show', [$post->profile, $post]) }}">{{ $post->created_at }}</p>
                     <p>
                         <a
                             class="text-pixl-light/40 hover:text-pixl-light/60 text-xs"
@@ -58,7 +58,11 @@
 
                     <!-- Like -->
                     <div class="flex items-center gap-1">
-                        <button aria-label="Like" class="hover:text-pixl">
+                        <button aria-label="Like"
+                                @class([
+                                    'text-pixl' => $post->has_liked
+                                ])
+                                class="hover:text-pixl">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -87,7 +91,11 @@
                                 </defs>
                             </svg>
                         </button>
-                        <span class="text-sm">{{ $post->likes_count }}</span>
+                        <span
+                            @class([
+                                    'text-pixl' => $post->has_liked
+                                ])
+                            class="text-sm">{{ $post->likes_count }}</span>
                     </div>
                     <!-- Comment -->
                     <div class="flex items-center gap-1">
@@ -124,7 +132,11 @@
                     </div>
                     <!-- Re-post -->
                     <div class="flex items-center gap-1">
-                        <button aria-label="Re-post" class="hover:text-pixl">
+                        <button aria-label="Re-post"
+                                @class([
+                                    'text-pixl' => $post->has_liked
+                                ])
+                                class="hover:text-pixl">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -197,7 +209,11 @@
                                 />
                             </svg>
                         </button>
-                        <span class="text-sm">{{ $post->reposts_count }}</span>
+                        <span
+                            @class([
+                                    'text-pixl' => $post->has_liked
+                                ])
+                            class="text-sm">{{ $post->reposts_count }}</span>
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
@@ -281,11 +297,11 @@
             @endif
         </div>
 
-        @if($showReplies && $post->relationLoaded('replies'))
+        @if($showReplies)
         <ol>
             <!-- Reply -->
             @foreach ($post->replies as $reply)
-                <x-reply :post="$reply" :show-engagement="false" />
+                <x-reply :post="$reply" :show-engagement="$showEngagement" :show-replies="$showReplies" />
             @endforeach
             <!-- More replies... -->
         </ol>
